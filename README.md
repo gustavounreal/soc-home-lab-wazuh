@@ -58,7 +58,5 @@ O laboratório é construído de forma progressiva. A prioridade atual está em 
 - Criação de usuário e alteração de privilégios.
 - Execução de processo suspeito e análise profunda do alerta.
 
-> "O objetivo não é construir um laboratório impressionante. É construir evidências de que você sabe trabalhar como analista SOC N1."
-
 ---
 **Foco:** Security Monitoring | SIEM (Wazuh) | Log Analysis | Threat Detection | Incident Investigation | SOC Operations
