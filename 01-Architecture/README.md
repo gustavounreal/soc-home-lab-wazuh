@@ -89,14 +89,14 @@ Camada destinada à execução controlada de atividades de reconhecimento, teste
 
 ## 3. Components
 
-A infraestrutura é composta por quatro máquinas virtuais, com funções específicas dentro do laboratório.
+A infraestrutura é composta por quatro máquinas virtuais, distribuídas em duas redes distintas para separar o tráfego de monitoramento da interface de gerenciamento:
 
-| Component | Operating System | Role |
-|---|---|---|
-| SOC-SERVER | Ubuntu Server 24.04 LTS | SIEM e gerenciamento centralizado |
-| WIN-ENDPOINT | Windows 11 Pro | Endpoint monitorado |
-| LINUX-ENDPOINT | Ubuntu Server 24.04 LTS | Endpoint monitorado |
-| KALI-ATTACKER | Kali Linux | Testes controlados de segurança |
+| Component | Operating System | IP (Internal Network) | Role |
+|---|---|---|---|
+| **SOC-SERVER** | Ubuntu Server 24.04 LTS | `10.10.10.10` | SIEM, gerenciamento centralizado e Dashboard |
+| **WIN-ENDPOINT** | Windows 11 Pro | `10.10.10.20` | Endpoint monitorado (Windows) |
+| **LINUX-ENDPOINT** | Ubuntu Server 24.04 LTS | `10.10.10.30` | Endpoint monitorado (Linux) |
+| **KALI-ATTACKER** | Kali Linux | `10.10.10.40` | Estação de testes controlados de segurança |
 
 ### 3.1 Wazuh Server
 Servidor central responsável pela infraestrutura de monitoramento e análise de eventos de segurança.
@@ -198,30 +198,31 @@ A distribuição de recursos foi dimensionada para um computador doméstico com 
 
 ## 5. Network Topology
 
-A comunicação entre os sistemas ocorre por meio de uma infraestrutura de rede virtual configurada no Oracle VM VirtualBox. O ambiente utiliza uma rede interna dedicada para comunicação entre os componentes, permitindo o isolamento do laboratório em relação à rede física de produção.
+A comunicação entre os sistemas ocorre por meio de uma infraestrutura de rede virtual configurada no Oracle VM VirtualBox (`VirtualBox`). O ambiente utiliza uma rede interna dedicada para a comunicação entre os componentes e uma interface Host-Only para acesso administrativo seguro.
 
 ### 5.1 Network Configuration
+
 - **Network Name:** SOC-LAB
-- **Network Address:** 192.168.56.0/24
+- **Network Address:** 10.10.10.0/24
 - **Subnet Mask:** 255.255.255.0
 
-| Component | Hostname | IP Address |
-|---|---|---|
-| Wazuh Server | SOC-SERVER | 192.168.56.10 |
-| Windows Endpoint | WIN-ENDPOINT | 192.168.56.20 |
-| Ubuntu Endpoint | LINUX-ENDPOINT | 192.168.56.30 |
-| Kali Linux | KALI-ATTACKER | 192.168.56.40 |
+| Component | Hostname | IP Address (Internal) | IP Address (Host-Only) |
+|---|---|---|---|
+| Wazuh Server | SOC-SERVER | `10.10.10.10` | `192.168.56.10` |
+| Windows Endpoint | WIN-ENDPOINT | `10.10.10.20` | — |
+| Ubuntu Endpoint | LINUX-ENDPOINT | `10.10.10.30` | — |
+| Kali Linux | KALI-ATTACKER | `10.10.10.40` | — |
 
 ### 5.2 Network Interfaces
 
 | Interface | Configuration | Purpose |
 |---|---|---|
-| Internal Network | SOC-LAB | Comunicação isolada entre as máquinas virtuais |
-| NAT | VirtualBox NAT | Acesso externo para atualizações e instalação de pacotes |
-| Host-Only | VirtualBox Host-Only | Comunicação entre o host e o servidor SOC |
+| **Internal Network** | `SOC-LAB` (`10.10.10.0/24`) | Comunicação isolada e tráfego de monitoramento entre as VMs |
+| **NAT** | VirtualBox NAT | Acesso externo para atualizações e instalação de pacotes nos nós |
+| **Host-Only** | VirtualBox Host-Only (`192.168.56.0/24`) | Acesso seguro do host físico (Windows) ao Wazuh Dashboard (`192.168.56.10`) |
 
-- O servidor SOC utiliza uma interface Host-Only para permitir o acesso ao Wazuh Dashboard diretamente pelo navegador do computador hospedeiro.
-- A interface Internal Network é utilizada para a comunicação entre os componentes do laboratório.
+- O **SOC-SERVER** utiliza a interface Host-Only (`192.168.56.10`) para permitir o acesso ao Wazuh Dashboard diretamente pelo navegador do computador hospedeiro com total segurança.
+- A interface `Internal Network` (`10.10.10.x`) gerencia o tráfego de agentes e testes entre o SOC, os endpoints e o Kali Linux.
 - A interface NAT permite acesso externo quando necessário para atualização dos sistemas e instalação de dependências.
 
 ### 5.3 Communication Ports
