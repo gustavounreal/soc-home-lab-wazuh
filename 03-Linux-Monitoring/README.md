@@ -1,18 +1,19 @@
-!\[Status](https://img.shields.io/badge/Status-Em\_Desenvolvimento-yellow)
+![Status](https://img.shields.io/badge/Status-Em\_Desenvolvimento-yellow)
 
-!\[SIEM](https://img.shields.io/badge/SIEM-Wazuh-blue)
+![SIEM](https://img.shields.io/badge/SIEM-Wazuh-blue)
 
-!\[Agent](https://img.shields.io/badge/Agent-Wazuh\_4.x-blue)
+![Agent](https://img.shields.io/badge/Agent-Wazuh\_4.x-blue)
 
-!\[OS](https://img.shields.io/badge/OS-Ubuntu\_Server\_22.04\_LTS-E95420?logo=ubuntu)
+![OS](https://img.shields.io/badge/OS-Ubuntu\_Server\_22.04\_LTS-E95420?logo=ubuntu)
 
-!\[Hypervisor](https://img.shields.io/badge/Hypervisor-VirtualBox\_7.x-orange)
+![Hypervisor](https://img.shields.io/badge/Hypervisor-VirtualBox\_7.x-orange)
 
-!\[Network](https://img.shields.io/badge/Network-Host--Only-lightgrey)
+![Network](https://img.shields.io/badge/Network-Host--Only-lightgrey)
 
-!\[Monitoring](https://img.shields.io/badge/Monitoring-SSH%20%7C%20Sudo%20%7C%20FIM-green)
+![Monitoring](https://img.shields.io/badge/Monitoring-SSH%20%7C%20Sudo%20%7C%20FIM-green)
 
-!\[Security](https://img.shields.io/badge/Security-Log\_Analysis-red)
+![Security](https://img.shields.io/badge/Security-Log\_Analysis-red)
+
 
 # 03 — Linux Monitoring 
 
@@ -30,11 +31,11 @@ Este diretório faz parte de um laboratório integrado de monitoramento e segura
 
 
 
-\---
+---
 
 
 
-\## 1. Objetivos
+## 1. Objetivos
 
 
 
@@ -46,19 +47,19 @@ Os principais objetivos são:
 
 
 
-\- Monitorar autenticações SSH bem-sucedidas e malsucedidas.
+- Monitorar autenticações SSH bem-sucedidas e malsucedidas.
 
-\- Identificar atividades relacionadas à criação, alteração e remoção de usuários.
+- Identificar atividades relacionadas à criação, alteração e remoção de usuários.
 
-\- Registrar a execução de comandos com privilégios administrativos via `sudo`.
+- Registrar a execução de comandos com privilégios administrativos via `sudo`.
 
-\- Acompanhar processos e serviços do sistema.
+- Acompanhar processos e serviços do sistema.
 
-\- Monitorar alterações em arquivos e diretórios por meio de File Integrity Monitoring (FIM).
+- Monitorar alterações em arquivos e diretórios por meio de File Integrity Monitoring (FIM).
 
-\- Centralizar os eventos no Wazuh Manager.
+- Centralizar os eventos no Wazuh Manager.
 
-\- Analisar os registros coletados e identificar atividades que merecem investigação.
+- Analisar os registros coletados e identificar atividades que merecem investigação.
 
 
 
@@ -66,7 +67,7 @@ O resultado esperado é a visualização dos eventos no Wazuh Dashboard, com pos
 
 
 
-\## 2. Ambiente
+## 2. Ambiente
 
 
 
@@ -104,7 +105,7 @@ Essa arquitetura permite monitorar diferentes sistemas operacionais sem a necess
 
 
 
-\## 3. Implantação do Wazuh Agent
+## 3. Implantação do Wazuh Agent
 
 
 
@@ -116,7 +117,7 @@ A instalação foi configurada para estabelecer comunicação com o Wazuh Manage
 
 
 
-\### 3.1. Configuração do repositório
+### 3.1. Configuração do repositório
 
 
 
@@ -148,7 +149,7 @@ sudo apt update
 
 
 
-\### 3.2. Instalação do agente
+### 3.2. Instalação do agente
 
 
 
@@ -178,7 +179,7 @@ sudo systemctl start wazuh-agent
 
 
 
-\### 3.3. Verificação
+### 3.3. Verificação
 
 
 
@@ -195,10 +196,9 @@ sudo /var/ossec/bin/wazuh-control status
 A validação foi realizada em duas etapas:
 
 
+1. Verificação local do serviço e dos processos do agente.
 
-1\. Verificação local do serviço e dos processos do agente.
-
-2\. Verificação do estado de comunicação no Wazuh Dashboard.
+2. Verificação do estado de comunicação no Wazuh Dashboard.
 
 
 
@@ -208,17 +208,17 @@ No painel, o agente `srv-linux01` deve aparecer em \*\*Agents Management\*\* com
 
 
 
-\*\*Evidências:\*\*
+**Evidências:**
 
 
 
-\- `images/01-linux-agent.png`
+- `images/01-linux-agent.png`
 
-\- `images/02-agent-dashboard.png`
+- `images/02-agent-dashboard.png`
 
 
 
-\## 4. Coleta de logs
+## 4. Coleta de logs
 
 
 
@@ -238,9 +238,9 @@ Foram definidos arquivos de log relevantes para o monitoramento do sistema:
 
 
 
-\- `/var/log/auth.log`
+- `/var/log/auth.log`
 
-\- `/var/log/syslog`
+- `/var/log/syslog`
 
 
 
@@ -248,7 +248,7 @@ Também foi configurada a coleta periódica da listagem de processos por meio do
 
 
 
-\### 4.1. Configuração de coleta
+### 4.1. Configuração de coleta
 
 
 
@@ -308,7 +308,7 @@ A coleta de `ps aux` ocorre a cada 300 segundos, permitindo acompanhar periodica
 
 
 
-\### 4.2. Reinicialização do agente
+### 4.2. Reinicialização do agente
 
 
 
@@ -336,7 +336,7 @@ agent.name: srv-linux01
 
 
 
-\## 5. Monitoramento de autenticação SSH
+## 5. Monitoramento de autenticação SSH
 
 
 
@@ -352,7 +352,7 @@ Os testes foram realizados a partir de máquinas pertencentes ao ambiente de lab
 
 
 
-\### 5.1. Autenticação bem-sucedida
+### 5.1. Autenticação bem-sucedida
 
 
 
@@ -384,7 +384,7 @@ O evento representa uma autenticação SSH realizada com sucesso.
 
 
 
-\### 5.2. Autenticação malsucedida
+### 5.2. Autenticação malsucedida
 
 
 
@@ -424,19 +424,19 @@ Os registros permitem identificar:
 
 
 
-\- Usuário utilizado na tentativa.
+- Usuário utilizado na tentativa.
 
-\- Endereço IP de origem.
+- Endereço IP de origem.
 
-\- Horário da ocorrência.
+- Horário da ocorrência.
 
-\- Resultado da autenticação.
+- Resultado da autenticação.
 
-\- Serviço responsável pelo registro.
+- Serviço responsável pelo registro.
 
 
 
-\### 5.3. Identificação no Wazuh
+### 5.3. Identificação no Wazuh
 
 
 
@@ -468,17 +468,17 @@ Portanto, três falhas isoladas não devem ser consideradas, por si só, garanti
 
 
 
-\*\*Evidências:\*\*
+**Evidências:**
 
 
 
-\- `images/03-authentication-logs.png`
+- `images/03-authentication-logs.png`
 
-\- `images/04-failed-login.png`
+- `images/04-failed-login.png`
 
 
 
-\## 6. Gerenciamento de usuários e privilégios
+## 6. Gerenciamento de usuários e privilégios
 
 
 
@@ -490,7 +490,7 @@ Foram realizadas operações controladas de criação, alteração e remoção d
 
 
 
-\### 6.1. Criação de usuário
+### 6.1. Criação de usuário
 
 
 
@@ -522,7 +522,7 @@ passwd\[1305]: pam\_unix(passwd:chauthtok): password changed for labuser01
 
 
 
-\### 6.2. Alteração de grupo
+### 6.2. Alteração de grupo
 
 
 
@@ -554,7 +554,7 @@ Essa alteração merece atenção durante uma investigação, pois a inclusão d
 
 
 
-\### 6.3. Remoção de usuário
+### 6.3. Remoção de usuário
 
 
 
@@ -582,7 +582,7 @@ userdel\[1315]: delete user 'labuser01'
 
 
 
-\### 6.4. Monitoramento de atividades sudo
+### 6.4. Monitoramento de atividades sudo
 
 
 
@@ -620,19 +620,19 @@ Esses registros permitem identificar:
 
 
 
-\- Usuário que iniciou a operação.
+- Usuário que iniciou a operação.
 
-\- Usuário efetivo utilizado na execução.
+- Usuário efetivo utilizado na execução.
 
-\- Terminal de origem.
+- Terminal de origem.
 
-\- Diretório de trabalho.
+- Diretório de trabalho.
 
-\- Comando executado.
+- Comando executado.
 
 
 
-\### 6.5. Identificação no Wazuh
+### 6.5. Identificação no Wazuh
 
 
 
@@ -656,17 +656,17 @@ As regras efetivamente acionadas dependem da versão do ruleset, dos registros r
 
 
 
-\*\*Evidências:\*\*
+**Evidências:**
 
 
 
-\- `images/05-user-management.png`
+- `images/05-user-management.png`
 
-\- `images/06-sudo-activity.png`
+- `images/06-sudo-activity.png`
 
 
 
-\## 7. Monitoramento de processos e serviços
+## 7. Monitoramento de processos e serviços
 
 
 
@@ -678,7 +678,7 @@ Além da coleta periódica de `ps aux`, foram realizadas verificações do estad
 
 
 
-\### 7.1. Verificação de serviços
+### 7.1. Verificação de serviços
 
 
 
@@ -716,7 +716,7 @@ wazuh-agent.service - Wazuh agent
 
 
 
-\### 7.2. Simulação de alteração de estado
+### 7.2. Simulação de alteração de estado
 
 
 
@@ -746,15 +746,15 @@ A análise deve considerar o horário da ocorrência, o serviço afetado e o con
 
 
 
-\*\*Evidência:\*\*
+**Evidência:**
 
 
 
-\- Parte de `images/07-system-monitoring.png`
+- Parte de `images/07-system-monitoring.png`
 
 
 
-\## 8. File Integrity Monitoring (FIM)
+## 8. File Integrity Monitoring (FIM)
 
 
 
@@ -766,9 +766,9 @@ Neste laboratório, o FIM foi configurado para acompanhar:
 
 
 
-\- `/etc`
+- `/etc`
 
-\- `/opt/lab-fim`
+- `/opt/lab-fim`
 
 
 
@@ -780,7 +780,7 @@ O diretório `/opt/lab-fim` foi utilizado como área controlada para os testes d
 
 
 
-\### 8.1. Configuração
+### 8.1. Configuração
 
 
 
@@ -808,7 +808,7 @@ A frequência de verificação foi definida em 300 segundos.
 
 
 
-\### 8.2. Simulação de alteração
+### 8.2. Simulação de alteração
 
 
 
@@ -832,7 +832,7 @@ echo "conteudo alterado" | sudo tee /opt/lab-fim/teste.txt
 
 
 
-\### 8.3. Análise dos eventos
+### 8.3. Análise dos eventos
 
 
 
@@ -858,15 +858,15 @@ Os eventos de FIM podem apresentar informações como:
 
 
 
-\- Caminho do arquivo.
+- Caminho do arquivo.
 
-\- Tipo de alteração.
+- Tipo de alteração.
 
-\- Data e horário.
+- Data e horário.
 
-\- Hash do arquivo.
+- Hash do arquivo.
 
-\- Informações anteriores e posteriores à alteração, conforme os dados disponíveis.
+- Informações anteriores e posteriores à alteração, conforme os dados disponíveis.
 
 
 
@@ -874,15 +874,15 @@ A análise permite identificar modificações em arquivos monitorados e avaliar 
 
 
 
-\*\*Evidência:\*\*
+**Evidência:**
 
 
 
-\- Parte de `images/07-system-monitoring.png`
+- Parte de `images/07-system-monitoring.png`
 
 
 
-\## 9. Eventos de segurança identificados
+## 9. Eventos de segurança identificados
 
 
 
@@ -916,7 +916,7 @@ A tabela apresenta os principais registros utilizados durante o laboratório.
 
 
 
-\## 10. Matriz de validação
+## 10. Matriz de validação
 
 
 
@@ -952,15 +952,15 @@ A matriz registra os resultados observados durante a execução dos testes. O ac
 
 
 
-\## 11. Troubleshooting
+## 11. Troubleshooting
 
 
 
-\### 11.1. Agente apresentado como Disconnected
+### 11.1. Agente apresentado como Disconnected
 
 
 
-\*\*Sintoma:\*\*
+**Sintoma:**
 
 
 
@@ -968,23 +968,23 @@ Após a instalação, o agente não aparecia como `Active` no dashboard do Wazuh
 
 
 
-\*\*Verificações realizadas:\*\*
+**Verificações realizadas:**
 
 
 
-\- Estado do serviço `wazuh-agent`.
+- Estado do serviço `wazuh-agent`.
 
-\- Configuração do endereço do Wazuh Manager.
+- Configuração do endereço do Wazuh Manager.
 
-\- Conectividade entre o agente e o Manager.
+- Conectividade entre o agente e o Manager.
 
-\- Regras de firewall.
+- Regras de firewall.
 
-\- Disponibilidade da porta de comunicação.
+- Disponibilidade da porta de comunicação.
 
 
 
-\*\*Ponto importante sobre a comunicação:\*\*
+**Ponto importante sobre a comunicação:**
 
 
 
@@ -996,9 +996,9 @@ Portanto, a liberação deve considerar o sentido efetivo da conexão:
 
 
 
-\- No firewall do Manager, permitir a entrada da comunicação originada pelo agente na porta `1514/TCP`.
+- No firewall do Manager, permitir a entrada da comunicação originada pelo agente na porta `1514/TCP`.
 
-\- Se o firewall do agente restringir conexões de saída, permitir a comunicação de saída para `192.168.56.10:1514/TCP`.
+- Se o firewall do agente restringir conexões de saída, permitir a comunicação de saída para `192.168.56.10:1514/TCP`.
 
 
 
@@ -1006,7 +1006,7 @@ A porta `1515/TCP` é normalmente utilizada para o serviço de registro de agent
 
 
 
-\*\*Exemplo de liberação no firewall do Manager, caso o UFW esteja ativo:\*\*
+**Exemplo de liberação no firewall do Manager, caso o UFW esteja ativo:**
 
 
 
@@ -1026,7 +1026,7 @@ Após os ajustes, verificar novamente o serviço e o estado do agente no dashboa
 
 
 
-\### 11.2. Eventos não aparecem no Wazuh
+### 11.2. Eventos não aparecem no Wazuh
 
 
 
@@ -1054,21 +1054,21 @@ Também é necessário verificar:
 
 
 
-\- Se o caminho do arquivo de log está correto.
+- Se o caminho do arquivo de log está correto.
 
-\- Se o bloco `<localfile>` está configurado adequadamente.
+- Se o bloco `<localfile>` está configurado adequadamente.
 
-\- Se o XML do `ossec.conf` está válido.
+- Se o XML do `ossec.conf` está válido.
 
-\- Se o agente foi reiniciado após a alteração.
+- Se o agente foi reiniciado após a alteração.
 
-\- Se o Manager está recebendo os eventos.
+- Se o Manager está recebendo os eventos.
 
-\- Se o filtro utilizado no dashboard corresponde ao agente correto.
+- Se o filtro utilizado no dashboard corresponde ao agente correto.
 
 
 
-\## 12. Estrutura do diretório
+## 12. Estrutura do diretório
 
 
 
@@ -1116,7 +1116,7 @@ As imagens devem representar capturas reais do ambiente, enquanto os arquivos da
 
 
 
-\## 13. Resultado do laboratório
+## 13. Resultado do laboratório
 
 
 
@@ -1128,21 +1128,21 @@ Foram trabalhadas atividades relacionadas a:
 
 
 
-\- Monitoramento de autenticação SSH.
+- Monitoramento de autenticação SSH.
 
-\- Identificação de tentativas de acesso malsucedidas.
+- Identificação de tentativas de acesso malsucedidas.
 
-\- Rastreamento de alterações em contas de usuário.
+- Rastreamento de alterações em contas de usuário.
 
-\- Monitoramento de comandos privilegiados.
+- Monitoramento de comandos privilegiados.
 
-\- Acompanhamento de processos e serviços.
+- Acompanhamento de processos e serviços.
 
-\- Monitoramento de integridade de arquivos.
+- Monitoramento de integridade de arquivos.
 
-\- Consulta e análise de eventos centralizados no Wazuh.
+- Consulta e análise de eventos centralizados no Wazuh.
 
-\- Verificação de conectividade e resolução de problemas do agente.
+- Verificação de conectividade e resolução de problemas do agente.
 
 
 
@@ -1154,33 +1154,33 @@ As atividades foram executadas em ambiente controlado, com usuários e operaçõ
 
 
 
-\## 14. Referências
+## 14. Referências
 
 
 
-\- \[Wazuh — Documentação oficial](https://documentation.wazuh.com/)
+- \[Wazuh — Documentação oficial](https://documentation.wazuh.com/)
 
-\- \[Wazuh — Linux Endpoint Security](https://documentation.wazuh.com/current/user-manual/capabilities/log-data-collection/index.html)
+- \[Wazuh — Linux Endpoint Security](https://documentation.wazuh.com/current/user-manual/capabilities/log-data-collection/index.html)
 
-\- \[Wazuh — File Integrity Monitoring](https://documentation.wazuh.com/current/user-manual/capabilities/file-integrity/index.html)
+- \[Wazuh — File Integrity Monitoring](https://documentation.wazuh.com/current/user-manual/capabilities/file-integrity/index.html)
 
-\- \[Wazuh — Ruleset](https://documentation.wazuh.com/current/user-manual/ruleset/index.html)
+- \[Wazuh — Ruleset](https://documentation.wazuh.com/current/user-manual/ruleset/index.html)
 
-\- \[Ubuntu Server — Documentação oficial](https://documentation.ubuntu.com/server/)
+- \[Ubuntu Server — Documentação oficial](https://documentation.ubuntu.com/server/)
 
-\- \[OpenSSH — Manual oficial](https://www.openssh.com/manual.html)
-
-
-
-\---
+- \[OpenSSH — Manual oficial](https://www.openssh.com/manual.html)
 
 
 
-\*\*Projeto:\*\* SOC Laboratory  
+---
 
-\*\*Módulo:\*\* 03 — Linux Monitoring  
 
-\*\*SIEM:\*\* Wazuh  
 
-\*\*Sistema monitorado:\*\* Ubuntu Server 22.04 LTS
+**Projeto:** SOC Laboratory  
+
+**Módulo:** 03 — Linux Monitoring  
+
+**SIEM:** Wazuh  
+
+**Sistema monitorado:** Ubuntu Server 22.04 LTS
 
