@@ -11,7 +11,7 @@
 
 ---
 
-## 📋 Índice
+## Índice
 
 - [1. Objetivos](#1-objetivos)
 - [2. Ambiente](#2-ambiente)
@@ -30,7 +30,7 @@
 
 ---
 
-## 📖 Sobre o Projeto
+## Sobre o Projeto
 
 Laboratório de monitoramento e auditoria de um servidor Linux com centralização de eventos no **Wazuh SIEM**.
 
@@ -46,13 +46,13 @@ Implementar e validar o monitoramento de um servidor Linux, demonstrando a capac
 
 Os principais objetivos são:
 
-- ✅ Monitorar autenticações SSH bem-sucedidas e malsucedidas.
-- ✅ Identificar atividades relacionadas à criação, alteração e remoção de usuários.
-- ✅ Registrar a execução de comandos com privilégios administrativos via `sudo`.
-- ✅ Acompanhar processos e serviços do sistema.
-- ✅ Monitorar alterações em arquivos e diretórios por meio de File Integrity Monitoring (FIM).
-- ✅ Centralizar os eventos no Wazuh Manager.
-- ✅ Analisar os registros coletados e identificar atividades que merecem investigação.
+-  Monitorar autenticações SSH bem-sucedidas e malsucedidas.
+-  Identificar atividades relacionadas à criação, alteração e remoção de usuários.
+-  Registrar a execução de comandos com privilégios administrativos via `sudo`.
+-  Acompanhar processos e serviços do sistema.
+-  Monitorar alterações em arquivos e diretórios por meio de File Integrity Monitoring (FIM).
+-  Centralizar os eventos no Wazuh Manager.
+-  Analisar os registros coletados e identificar atividades que merecem investigação.
 
 O resultado esperado é a visualização dos eventos no Wazuh Dashboard, com possibilidade de relacioná-los aos registros originais do servidor Linux.
 
@@ -77,7 +77,7 @@ O ambiente utiliza uma rede isolada do tipo Host-only no VirtualBox. O Wazuh Man
 
 Essa arquitetura permite monitorar diferentes sistemas operacionais sem a necessidade de implantar um servidor SIEM independente para cada máquina.
 
-### 🏗️ Arquitetura do Laboratório
+### Arquitetura do Laboratório
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
@@ -154,8 +154,10 @@ No painel, o agente `srv-linux01` deve aparecer em **Agents Management** com o s
 
 **Evidências:**
 
-- `images/01-linux-agent.png`
-- `images/02-agent-dashboard.png`
+<img width="1408" height="768" alt="01-linux-agent" src="https://github.com/user-attachments/assets/9dfeb999-23cd-4395-9363-36b541deb35d" />
+
+<img width="2445" height="432" alt="02-agent-dashboard png" src="https://github.com/user-attachments/assets/78a9715e-d5b8-4b89-a0f9-4cb495c441cc" />
+
 
 ---
 
@@ -202,7 +204,7 @@ O arquivo `syslog` complementa a coleta com registros de serviços e atividades 
 
 A coleta de `ps aux` ocorre a cada 300 segundos, permitindo acompanhar periodicamente os processos em execução.
 
-> ⚠️ **Nota:** Os blocos devem ser incorporados à configuração existente do agente, preservando as demais configurações necessárias.
+> **Nota:** Os blocos devem ser incorporados à configuração existente do agente, preservando as demais configurações necessárias.
 
 ### 4.2. Reinicialização do Agente
 
@@ -288,8 +290,11 @@ Portanto, três falhas isoladas não devem ser consideradas, por si só, garanti
 
 **Evidências:**
 
-- `images/03-authentication-logs.png`
-- `images/04-failed-login.png`
+<img width="964" height="582" alt="03-authentication-logs2pg" src="https://github.com/user-attachments/assets/1a220cbe-a61b-4e07-9551-e5b91f404107" />
+
+
+<img width="1376" height="768" alt="04-failed-login png" src="https://github.com/user-attachments/assets/6de03866-dd38-4766-9dae-fa40e6f27474" />
+
 
 ---
 
@@ -384,8 +389,10 @@ As regras efetivamente acionadas dependem da versão do ruleset, dos registros r
 
 **Evidências:**
 
-- `images/05-user-management.png`
-- `images/06-sudo-activity.png`
+<img width="1376" height="768" alt="05-user-management png" src="https://github.com/user-attachments/assets/93ef95ee-42a3-46db-ab63-62318e67fdb5" />
+
+<img width="1376" height="768" alt="06 — Sudo Activity" src="https://github.com/user-attachments/assets/882a280d-4e25-4668-a510-9713fbdf60d6" />
+
 
 ---
 
@@ -431,7 +438,8 @@ A análise deve considerar o horário da ocorrência, o serviço afetado e o con
 
 **Evidência:**
 
-- Parte de `images/07-system-monitoring.png`
+<img width="1376" height="768" alt="07-system-monitoring png" src="https://github.com/user-attachments/assets/2fe6820e-109f-4f57-b0ef-a4952d934060" />
+
 
 ---
 
@@ -575,7 +583,7 @@ sudo ufw allow from 192.168.56.20 to any port 1514 proto tcp
 
 Após os ajustes, verificar novamente o serviço e o estado do agente no dashboard.
 
-> ⚠️ **Importante:** A regra de firewall deve ser aplicada na máquina e no sentido correspondentes à configuração real da rede. Não se deve liberar indiscriminadamente portas de entrada no servidor monitorado.
+>  **Importante:** A regra de firewall deve ser aplicada na máquina e no sentido correspondentes à configuração real da rede. Não se deve liberar indiscriminadamente portas de entrada no servidor monitorado.
 
 ### 11.2. Eventos Não Aparecem no Wazuh
 
@@ -632,14 +640,14 @@ O cenário demonstrou a implantação de um agente Wazuh em um servidor Ubuntu S
 
 Foram trabalhadas atividades relacionadas a:
 
-- ✅ Monitoramento de autenticação SSH.
-- ✅ Identificação de tentativas de acesso malsucedidas.
-- ✅ Rastreamento de alterações em contas de usuário.
-- ✅ Monitoramento de comandos privilegiados.
-- ✅ Acompanhamento de processos e serviços.
-- ✅ Monitoramento de integridade de arquivos.
-- ✅ Consulta e análise de eventos centralizados no Wazuh.
-- ✅ Verificação de conectividade e resolução de problemas do agente.
+-  Monitoramento de autenticação SSH.
+-  Identificação de tentativas de acesso malsucedidas.
+-  Rastreamento de alterações em contas de usuário.
+-  Monitoramento de comandos privilegiados.
+-  Acompanhamento de processos e serviços.
+-  Monitoramento de integridade de arquivos.
+-  Consulta e análise de eventos centralizados no Wazuh.
+-  Verificação de conectividade e resolução de problemas do agente.
 
 O laboratório fornece uma base prática para atividades de monitoramento e análise de eventos em sistemas Linux, competências relevantes para rotinas de infraestrutura, segurança da informação e operações SOC.
 
@@ -667,6 +675,6 @@ As atividades foram executadas em ambiente controlado, com usuários e operaçõ
 
 ---
 
-⌨️ Desenvolvido como parte do laboratório SOC
+Desenvolvido como parte do laboratório SOC
 
 </div>
