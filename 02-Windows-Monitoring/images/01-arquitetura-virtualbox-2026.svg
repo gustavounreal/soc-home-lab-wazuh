@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="background" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#1f2937"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity=".35"/>
+    </filter>
+    <marker id="arrow" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
+      <path d="M0,0 L8,4 L0,8 z" fill="#67e8f9"/>
+    </marker>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #f9fafb; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #cbd5e1; }
+      .section { font: 700 22px Arial, sans-serif; fill: #e0f2fe; }
+      .vm-title { font: 700 24px Arial, sans-serif; fill: #f8fafc; }
+      .vm-text { font: 400 18px Arial, sans-serif; fill: #dbeafe; }
+      .small { font: 400 16px Arial, sans-serif; fill: #cbd5e1; }
+      .network { font: 700 24px Arial, sans-serif; fill: #082f49; }
+      .network-small { font: 400 18px Arial, sans-serif; fill: #0c4a6e; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#background)"/>
+  <text x="800" y="58" text-anchor="middle" class="title">SOC HOME LAB - WINDOWS MONITORING</text>
+  <text x="800" y="92" text-anchor="middle" class="subtitle">Arquitetura validada do ambiente VirtualBox | Evidencia: 16/11/2026</text>
+
+  <rect x="70" y="135" width="1460" height="690" rx="24" fill="#0f172a" stroke="#334155" stroke-width="2" filter="url(#shadow)"/>
+  <text x="800" y="178" text-anchor="middle" class="section">Rede interna: SOC-LAB - 10.10.10.0/24</text>
+
+  <rect x="105" y="215" width="430" height="220" rx="16" fill="#14532d" stroke="#4ade80" stroke-width="3"/>
+  <text x="135" y="255" class="vm-title">SOC-SERVER</text>
+  <text x="135" y="292" class="vm-text">Ubuntu Server 24.04 LTS</text>
+  <text x="135" y="326" class="vm-text">IP interno: 10.10.10.10</text>
+  <text x="135" y="360" class="vm-text">Wazuh Manager / Indexer</text>
+  <text x="135" y="394" class="vm-text">Wazuh Dashboard</text>
+
+  <rect x="585" y="215" width="430" height="220" rx="16" fill="#1e3a8a" stroke="#60a5fa" stroke-width="3"/>
+  <text x="615" y="255" class="vm-title">WIN-ENDPOINT</text>
+  <text x="615" y="292" class="vm-text">Windows 11 Pro - Build 22631</text>
+  <text x="615" y="326" class="vm-text">IP interno: 10.10.10.20</text>
+  <text x="615" y="360" class="vm-text">Wazuh Agent</text>
+  <text x="615" y="394" class="vm-text">Security + System Event Logs</text>
+
+  <rect x="1065" y="215" width="430" height="220" rx="16" fill="#3f2a64" stroke="#c084fc" stroke-width="3"/>
+  <text x="1095" y="255" class="vm-title">LINUX-ENDPOINT</text>
+  <text x="1095" y="292" class="vm-text">Ubuntu Server 24.04 LTS</text>
+  <text x="1095" y="326" class="vm-text">IP interno: 10.10.10.30</text>
+  <text x="1095" y="360" class="vm-text">Wazuh Agent</text>
+  <text x="1095" y="394" class="vm-text">Linux monitoring</text>
+
+  <rect x="585" y="535" width="430" height="190" rx="16" fill="#78350f" stroke="#fb923c" stroke-width="3"/>
+  <text x="615" y="575" class="vm-title">KALI-ATTACKER</text>
+  <text x="615" y="612" class="vm-text">Kali Linux</text>
+  <text x="615" y="646" class="vm-text">IP interno: 10.10.10.40</text>
+  <text x="615" y="680" class="vm-text">Testes controlados</text>
+
+  <line x1="535" y1="325" x2="585" y2="325" stroke="#67e8f9" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1065" y1="325" x2="1015" y2="325" stroke="#67e8f9" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="800" y1="535" x2="800" y2="435" stroke="#67e8f9" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="800" y="490" text-anchor="middle" class="small">Testes autorizados</text>
+
+  <rect x="105" y="875" width="680" height="75" rx="14" fill="#082f49" stroke="#38bdf8" stroke-width="2"/>
+  <text x="135" y="907" class="network">Host-Only: 192.168.56.0/24</text>
+  <text x="135" y="935" class="network-small">Acesso do host ao Dashboard: 192.168.56.10</text>
+  <line x1="320" y1="875" x2="320" y2="435" stroke="#38bdf8" stroke-width="3" stroke-dasharray="10 8" marker-end="url(#arrow)"/>
+
+  <rect x="815" y="875" width="680" height="75" rx="14" fill="#082f49" stroke="#38bdf8" stroke-width="2"/>
+  <text x="845" y="907" class="network">Comunicacao Wazuh</text>
+  <text x="845" y="935" class="network-small">1514/TCP - agentes | 1515/TCP - registro, quando habilitado</text>
+
+  <rect x="70" y="965" width="1460" height="25" fill="#020617"/>
+  <text x="800" y="984" text-anchor="middle" class="small">NAT: acesso externo somente para atualizacoes e instalacao de pacotes</text>
+</svg>
