@@ -90,13 +90,13 @@ Visão do ambiente virtualizado com o `WIN-ENDPOINT` integrado à rede interna
 
 Evento `4688` visualizado no Windows Event Viewer e recebido pelo Wazuh.
 
-<img width="1408" height="768" alt="Monitoramento de processos Windows" src="https://github.com/user-attachments/assets/43b80110-72cc-475a-ae2f-ea29f15c6600" />
+<img width="1408" height="768" alt="Monitoramento de processos Windows" src="./images/02 — Windows Process.jpg" />
 
 ### 03 — Monitoramento de Eventos de Segurança
 
 Evento `4625` visualizado no Wazuh como falha de logon do Windows.
 
-<img width="1408" height="768" alt="Evento de segurança Windows" src="https://github.com/user-attachments/assets/a84917ac-c9b7-4120-a0e4-fa653fb0be3d" />
+<img width="1408" height="768" alt="Evento de segurança Windows" src="./images/03 — Windows Event.jpg" />
 
 ## Scripts de Apoio
 
