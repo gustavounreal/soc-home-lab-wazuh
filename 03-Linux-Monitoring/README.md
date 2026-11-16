@@ -25,13 +25,15 @@ está documentada em [`01-Architecture`](../01-Architecture).
 | **LINUX-ENDPOINT** | Ubuntu Server 24.04 LTS | `10.10.10.30` | Endpoint Linux monitorado |
 
 O `LINUX-ENDPOINT` comunica-se com o Wazuh Manager pela rede interna
-`SOC-LAB` (`10.10.10.0/24`) utilizando a porta TCP `1514`. A porta TCP
-`1515` é utilizada para registro de agentes quando esse mecanismo estiver
-habilitado.
+`SOC-LAB` (`10.10.10.0/24`) utilizando a porta TCP `1514`. A porta TCP `1515`
+somente é necessária quando o serviço de enrollment do Wazuh estiver
+explicitamente configurado no Manager; ela não faz parte do fluxo de
+instalação documentado neste módulo.
 
 O acesso administrativo ao Dashboard ocorre pela interface Host-Only do
-`SOC-SERVER`, em `https://192.168.56.10`. A rede Host-Only não substitui a rede
-interna utilizada na comunicação entre os agentes e o Manager.
+`SOC-SERVER`, em `https://192.168.56.10`. Os endpoints não utilizam a rede
+Host-Only para telemetria: a comunicação entre agentes e Manager ocorre
+exclusivamente pela rede interna `SOC-LAB`.
 
 ## Objetivos do Monitoramento
 
@@ -102,7 +104,9 @@ As fontes de eventos monitoradas são:
 O arquivo `auth.log` registra autenticações SSH, atividades `sudo` e eventos
 relacionados ao gerenciamento de usuários. O arquivo `syslog` complementa a
 coleta com eventos de serviços e atividades do sistema. A listagem `ps aux` é
-coletada a cada 300 segundos.
+coletada a cada 300 segundos, funcionando como uma verificação periódica de
+apoio. Essa coleta pode não registrar processos de curta duração e não
+representa monitoramento contínuo de criação de processos.
 
 Após alterações na configuração:
 
@@ -131,7 +135,8 @@ Failed password
 Os eventos podem conter usuário, origem, horário, serviço e resultado da
 autenticação. Múltiplas falhas devem ser analisadas conforme a correlação e as
 regras efetivamente aplicadas no Wazuh; três falhas isoladas não comprovam, por
-si só, um ataque de força bruta.
+si só, um ataque de força bruta. Um alerta é um sinal para a triagem N1, não a
+confirmação automática de um incidente.
 
 ## Usuários e Atividades Administrativas
 
@@ -155,8 +160,11 @@ elevação maliciosa de privilégio.
 
 ## Processos e Serviços
 
-O monitoramento de processos utiliza a coleta periódica de `ps aux`. A
-verificação local dos serviços pode ser realizada com:
+O monitoramento de processos utiliza a coleta periódica de `ps aux` como
+baseline de apoio. Processos efêmeros podem não aparecer nessa amostragem; a
+análise deve ser complementada pelos logs de autenticação, `syslog` e eventos
+do FIM, conforme o comportamento observado. A verificação local dos serviços
+pode ser realizada com:
 
 ```bash
 systemctl status ssh

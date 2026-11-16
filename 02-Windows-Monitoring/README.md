@@ -24,8 +24,13 @@ oficial do laboratório, sem exposição dos testes a sistemas externos.
 
 O acesso ao Dashboard é realizado pela interface Host-Only do `SOC-SERVER`,
 em `https://192.168.56.10`. A comunicação do agente utiliza a porta TCP
-`1514`; a porta TCP `1515` é utilizada para registro de agentes quando esse
-mecanismo estiver habilitado.
+`1514`. A porta TCP `1515` somente é necessária quando o serviço de enrollment
+do Wazuh estiver explicitamente configurado no Manager; ela não faz parte do
+fluxo de instalação documentado neste módulo.
+
+O `WIN-ENDPOINT` não utiliza a rede Host-Only para telemetria. A comunicação
+entre o agente e o Manager ocorre pela rede interna `SOC-LAB`; a interface
+Host-Only é utilizada apenas pelo host físico para acessar o Dashboard.
 
 ## Objetivos do Monitoramento
 
@@ -75,7 +80,8 @@ controlados no endpoint:
 
 Os eventos são coletados pelo agente e disponibilizados no Wazuh para consulta
 e validação. A presença de um evento não representa, isoladamente, a
-confirmação de um incidente.
+confirmação de um incidente; cada alerta deve ser tratado como entrada para a
+triagem N1.
 
 ## Evidências Visuais
 
