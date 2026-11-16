@@ -56,10 +56,12 @@
   <text x="615" y="646" class="vm-text">IP interno: 10.10.10.40</text>
   <text x="615" y="680" class="vm-text">Testes controlados</text>
 
-  <line x1="535" y1="325" x2="585" y2="325" stroke="#67e8f9" stroke-width="4" marker-end="url(#arrow)"/>
-  <line x1="1065" y1="325" x2="1015" y2="325" stroke="#67e8f9" stroke-width="4" marker-end="url(#arrow)"/>
-  <line x1="800" y1="535" x2="800" y2="435" stroke="#67e8f9" stroke-width="4" marker-end="url(#arrow)"/>
-  <text x="800" y="490" text-anchor="middle" class="small">Testes autorizados</text>
+  <line x1="585" y1="325" x2="535" y2="325" stroke="#67e8f9" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M1065 420 L1040 470 L560 470 L535 420" fill="none" stroke="#67e8f9" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M700 535 L700 470 L585 435" fill="none" stroke="#fb923c" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M900 535 L900 470 L1240 435" fill="none" stroke="#fb923c" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="800" y="490" text-anchor="middle" class="small">Agentes enviam eventos ao SOC-SERVER</text>
+  <text x="800" y="515" text-anchor="middle" class="small">Kali gera testes controlados nos endpoints</text>
 
   <rect x="105" y="875" width="680" height="75" rx="14" fill="#082f49" stroke="#38bdf8" stroke-width="2"/>
   <text x="135" y="907" class="network">Host-Only: 192.168.56.0/24</text>

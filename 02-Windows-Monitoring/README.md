@@ -84,7 +84,7 @@ confirmação de um incidente.
 Visão do ambiente virtualizado com o `WIN-ENDPOINT` integrado à rede interna
 `SOC-LAB`.
 
-<img width="1600" height="1000" alt="Arquitetura validada do ambiente VirtualBox em 2026" src="./images/01-arquitetura-virtualbox-2026.svg" />
+<img width="1600" height="1000" alt="Arquitetura validada do ambiente VirtualBox em 2026" src="./images/01-arquitetura-virtualbox-2026.jpg" />
 
 ### 02 — Monitoramento de Criação de Processos
 
