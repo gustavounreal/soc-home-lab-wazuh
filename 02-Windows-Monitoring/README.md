@@ -1,95 +1,108 @@
-﻿# SOC Home Lab — Windows Endpoint Monitoring
+# SOC Home Lab — Windows Endpoint Monitoring
 
 ![Status](https://img.shields.io/badge/Status-Em_Andamento-yellow)
-![Platform](https://img.shields.io/badge/SIEM-Wazuh-blue)
+![Platform](https://img.shields.io/badge/Platform-Windows_11_Pro-0078D6?logo=windows)
+![SIEM](https://img.shields.io/badge/SIEM-Wazuh-blue)
 ![Environment](https://img.shields.io/badge/Environment-VirtualBox-lightgrey)
 
 ## Sobre o Projeto
 
-Este repositório documenta a etapa de **Windows Monitoring** do SOC Home Lab. O objetivo é demonstrar a implementação, configuração e validação do monitoramento de segurança em um endpoint Windows 11 Pro, utilizando o **Wazuh SIEM** para centralização e análise de logs.
+Este diretório documenta exclusivamente o monitoramento de segurança do endpoint
+Windows do SOC Home Lab. O objetivo é demonstrar a integração do Windows 11 Pro
+com o Wazuh Agent e a coleta de eventos do Windows Event Log para análise
+centralizada no Wazuh.
 
-O ambiente foi construído em uma rede isolada (`SOC-LAB`), garantindo que todas as atividades sejam controladas e não afetem sistemas externos.
+As atividades são executadas na rede isolada `SOC-LAB`, conforme a arquitetura
+oficial do laboratório, sem exposição dos testes a sistemas externos.
 
-## Arquitetura do Laboratório
+## Ambiente Windows
 
-O laboratório é composto por quatro máquinas virtuais interligadas na rede interna `10.10.10.0/24`:
-
-| Máquina | Sistema Operacional | IP | Função |
+| Componente | Sistema Operacional | IP na rede interna | Função |
 | :--- | :--- | :--- | :--- |
 | **SOC-SERVER** | Ubuntu Server 24.04 LTS | `10.10.10.10` | Wazuh Manager, Indexer e Dashboard |
-| **WIN-ENDPOINT** | Windows 11 Pro (Build 22631) | `10.10.10.20` | Endpoint monitorado (Wazuh Agent) |
-| **LINUX-ENDPOINT** | Ubuntu Server 24.04 LTS | `10.10.10.30` | Endpoint Linux monitorado |
-| **KALI-ATTACKER** | Kali Linux | `10.10.10.40` | Simulações controladas |
+| **WIN-ENDPOINT** | Windows 11 Pro (Build 22631) | `10.10.10.20` | Endpoint monitorado |
 
-*   **Acesso ao Dashboard:** Realizado via interface Host-Only do SOC-SERVER (`https://192.168.56.10`).
-*   **Comunicação do Agente:** Portas TCP 1514 (Agent Communication) e TCP 1515 (Agent Enrollment).
+O acesso ao Dashboard é realizado pela interface Host-Only do `SOC-SERVER`,
+em `https://192.168.56.10`. A comunicação do agente utiliza a porta TCP
+`1514`; a porta TCP `1515` é utilizada para registro de agentes quando esse
+mecanismo estiver habilitado.
 
----
+## Objetivos do Monitoramento
 
-## Evidências Visuais (Screenshots)
+- Integrar o `WIN-ENDPOINT` ao Wazuh;
+- Coletar eventos dos canais `Security` e `System`;
+- Monitorar autenticações e falhas de logon;
+- Monitorar criação de processos;
+- Monitorar criação de usuários e alterações em grupos locais;
+- Validar a chegada e a decodificação dos eventos no Dashboard.
 
-As imagens abaixo foram capturadas diretamente do ambiente virtualizado e documentam a configuração e o fluxo de monitoramento.
+## Configuração do Wazuh Agent
 
-### 01 — Arquitetura e Gerenciamento do VirtualBox
-Visão geral do Oracle VM VirtualBox 7.x com as quatro VMs em execução. O **WIN-ENDPOINT** está destacado como o objeto de análise desta etapa, evidenciando a rede interna `SOC-LAB` e o fluxo de comunicação via Wazuh Agent.
+O agente Windows é configurado no arquivo:
 
-<img width="1365" height="768" alt="01-arquitetura-virtualbox" src="https://github.com/user-attachments/assets/b4b1909f-527f-47ba-b172-0fdf50349372" />
+```text
+C:\Program Files (x86)\ossec-agent\ossec.conf
+```
 
-
-### 02 — Windows Process Monitoring
-Configuração da auditoria de processos no Windows. O **Event Viewer** exibe o Event ID **4688** (*A new process has been created*), enquanto o **Wazuh Dashboard** confirma o recebimento e a decodificação do evento, provando a coleta de criação de processos (sem exibir linhas de comando, respeitando a política padrão).
-
-<img width="1408" height="768" alt="02 — Windows Process" src="https://github.com/user-attachments/assets/43b80110-72cc-475a-ae2f-ea29f15c6600" />
-
-
-### 03 — Windows Security Event Monitoring
-Visualização de eventos de segurança no Wazuh. A imagem destaca a triagem inicial de um evento **4625** (*Failed Logon*). O painel **ALERT TRIAGE** demonstra a postura correta do analista: o evento está marcado como *Pending Analysis*, aguardando correlação, sem ser classificado automaticamente como ataque.
-
-<img width="1408" height="768" alt="03 — Windows Event" src="https://github.com/user-attachments/assets/a84917ac-c9b7-4120-a0e4-fa653fb0be3d" />
-
-
-### 04 — Linux Process Monitoring
-Inspeção de processos no `LINUX-ENDPOINT` via terminal (comandos `ps`, `top`, `pstree`). O Wazuh Dashboard (em tema claro) exibe a saúde do agente Linux, demonstrando a separação entre a inspeção manual do sistema operacional e a telemetria efetivamente coletada pelo SIEM.
-
-<img width="1698" height="926" alt="04 — Linux Process" src="https://github.com/user-attachments/assets/31de2862-8295-463a-9431-6982348bee20" />
-
-
-### 05 — Wazuh Alert Analysis
-Detalhamento de um alerta no Wazuh Dashboard. A tela mostra a investigação de um log de falha de autenticação (Event ID 4625), com a triagem inicial indicando a necessidade de correlacionar eventos relacionados (4624, 4634) antes de qualquer conclusão.
-
-<img width="1698" height="926" alt="05 — Wazuh Alert" src="https://github.com/user-attachments/assets/e23a7972-0a06-40b9-affe-891e73a90cc4" />
-
-
-### 06 — Security Event Investigation
-A estação de trabalho do analista SOC N1. A tela divide-se entre a consulta filtrada no Wazuh, os detalhes técnicos do evento 4625 e um editor de texto (Markdown) documentando o relatório **IR-001**. O relatório registra as evidências e mantém a classificação como *Pending validation*.
-
-<img width="1672" height="941" alt="06 — Investigation" src="https://github.com/user-attachments/assets/2ad8b0dd-0cf5-40ee-86ed-8914fe65a48d" />
-
-
-### 07 — Incident Report (Conclusão)
-O encerramento do ciclo de investigação. O relatório **IR-001** está finalizado, documentando a correlação de eventos, concluindo que a falha de login foi isolada (falso positivo/atividade benigna) e recomendando o monitoramento contínuo, sem ações de contenção desnecessárias.
-
-<img width="1672" height="941" alt="07 — Incident Report" src="https://github.com/user-attachments/assets/e6506abf-a376-41ca-a062-7c9c00fc763a" />
-
-
----
-
-## Configuração do Wazuh Agent (Windows)
-
-O agente foi instalado no `WIN-ENDPOINT` e configurado para coletar o canal de segurança do Windows.
-
-Arquivo de configuração (`C:\Program Files (x86)\ossec-agent\ossec.conf`):
+Os canais coletados são:
 
 ```xml
 <localfile>
   <location>Security</location>
   <log_format>eventchannel</log_format>
 </localfile>
+
+<localfile>
+  <location>System</location>
+  <log_format>eventchannel</log_format>
+</localfile>
 ```
+
+O agente se comunica com o Wazuh Manager em `10.10.10.10:1514/TCP`.
+
+## Auditoria de Eventos Windows
+
+O script de auditoria habilita as políticas necessárias para gerar eventos
+controlados no endpoint:
+
+| Event ID | Atividade |
+|---:|---|
+| `4688` | Criação de processo |
+| `4624` | Logon bem-sucedido |
+| `4625` | Falha de logon |
+| `4720` | Criação de usuário |
+| `4732` | Inclusão em grupo local |
+
+Os eventos são coletados pelo agente e disponibilizados no Wazuh para consulta
+e validação. A presença de um evento não representa, isoladamente, a
+confirmação de um incidente.
+
+## Evidências Visuais
+
+### 01 — Arquitetura e Gerenciamento do VirtualBox
+
+Visão do ambiente virtualizado com o `WIN-ENDPOINT` integrado à rede interna
+`SOC-LAB`.
+
+<img width="1365" height="768" alt="Arquitetura do VirtualBox" src="https://github.com/user-attachments/assets/b4b1909f-527f-47ba-b172-0fdf50349372" />
+
+### 02 — Monitoramento de Criação de Processos
+
+Evento `4688` visualizado no Windows Event Viewer e recebido pelo Wazuh.
+
+<img width="1408" height="768" alt="Monitoramento de processos Windows" src="https://github.com/user-attachments/assets/43b80110-72cc-475a-ae2f-ea29f15c6600" />
+
+### 03 — Monitoramento de Eventos de Segurança
+
+Evento `4625` visualizado no Wazuh como falha de logon do Windows.
+
+<img width="1408" height="768" alt="Evento de segurança Windows" src="https://github.com/user-attachments/assets/a84917ac-c9b7-4120-a0e4-fa653fb0be3d" />
+
 ## Scripts de Apoio
 
-Os scripts utilizados para configuração e validação do ambiente estão disponíveis na pasta [`/scripts`](./scripts):
+Os arquivos diretamente relacionados ao monitoramento Windows estão disponíveis
+em [`scripts`](./scripts):
 
-*   `01-wazuh-agent-config.xml`: Snippet de configuração do Wazuh Agent para o Windows.
-*   `02-windows-command-audit.ps1`: Script PowerShell para habilitar auditorias e gerar eventos controlados (4688, 4720, 4625).
-*   `03-linux-agent-commands.sh`: Comandos de verificação de serviço e inspeção de processos no Linux.
+- [`01-wazuh-agent-config.xml`](./scripts/01-wazuh-agent-config.xml): configuração do agente e dos canais coletados;
+- [`02-windows-command-audit.ps1`](./scripts/02-windows-command-audit.ps1): habilitação da auditoria e geração de eventos controlados.
+
