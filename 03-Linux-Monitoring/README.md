@@ -213,19 +213,19 @@ Visualização do agente Linux no Wazuh Dashboard.
 
 Eventos de autenticação coletados do endpoint Linux.
 
-<img width="1376" height="768" alt="Logs de autenticação Linux" src="./imagens/03-authentication-logs.png.jpg" />
+<img width="1376" height="768" alt="Logs de autenticação Linux" src="./imagens/03-authentication-logs.png" />
 
 ### 04 — Falha de Login
 
 Evidência de tentativa malsucedida de autenticação SSH.
 
-<img width="1376" height="768" alt="Falha de login SSH" src="./imagens/04-failed-login.png.jpg" />
+<img width="1376" height="768" alt="Falha de login SSH" src="./imagens/04-failed-login.jpg" />
 
 ### 05 — Gerenciamento de Usuários
 
 Evidência de atividade relacionada ao gerenciamento de usuários Linux.
 
-<img width="1376" height="768" alt="Gerenciamento de usuários Linux" src="./imagens/05-user-management.png.jpg" />
+<img width="1376" height="768" alt="Gerenciamento de usuários Linux" src="./imagens/05-user-management.png" />
 
 ### 06 — Atividade Sudo
 
@@ -237,7 +237,7 @@ Evidência de execução de comandos administrativos.
 
 Evidência de processos e serviços do endpoint Linux.
 
-<img width="1376" height="768" alt="Monitoramento de processos e serviços Linux" src="./imagens/07-system-monitoring.png.jpg" />
+<img width="1376" height="768" alt="Monitoramento de processos e serviços Linux" src="./imagens/07-system-monitoring.jpg" />
 
 ## Scripts de Apoio
 
