@@ -1,4 +1,7 @@
-# SOC Home Lab — Account and Privilege Changes
+Windows — criação de conta (4720)
+
+Event Viewer mostrando o evento real;
+conta criada, usuário responsável e horário.# SOC Home Lab — Account and Privilege Changes
 
 ![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
 ![SIEM](https://img.shields.io/badge/SIEM-Wazuh-blue)
@@ -193,16 +196,63 @@ Para uma alteração não autorizada:
 As ações acima devem ser descritas como recomendadas, salvo quando houver
 registro de que foram realmente executadas.
 
-## Evidência disponível
+## Evidências Visuais
 
-A evidência visual do gerenciamento de usuários Linux está em
-[`05-user-management.png`](../03-Linux-Monitoring/imagens/05-user-management.png).
-Ela apresenta eventos do `LINUX-ENDPOINT`, IP `10.10.10.30`, origem
-`10.10.10.40`, usuário `root`, operações `useradd`, `usermod` e `userdel`, e
-os horários correspondentes.
+As evidências deste módulo estão organizadas em
+[`05-Account-and-Privilege-Changes/imagens`](./imagens):
 
-Essa evidência representa uma atividade controlada. Ela não deve ser descrita
-como comprovação de ataque ou elevação maliciosa sem contexto adicional.
+### Windows — evento 4720
+
+![Visualizador de Eventos — criação de usuário](<./imagens/01-Visualizador de Eventos_ Criação de Usuário.png>)
+
+A captura mostra o evento `4720` no `WIN-ENDPOINT`:
+
+- conta criada: `soc-test01`;
+- usuário responsável: `Administrador`;
+- computador: `WIN-ENDPOINT`;
+- IP do endpoint: `10.10.10.20`;
+- data e hora observadas: `17/11/2026 16:36:28`;
+- Event Record ID: `46287`;
+- Wazuh Manager: `10.10.10.10` via TCP/1514.
+
+### Linux — execução e verificação local
+
+![Demonstração de gerenciamento de usuários Linux](<./imagens/02-Demonstração de gerenciamento de usuários Linux.png>)
+
+A captura mostra, no `LINUX-ENDPOINT`, a criação, a inclusão no grupo
+`sudo`, a verificação e a remoção de `labuser01`:
+
+- Ubuntu Server 24.04 LTS;
+- IP: `10.10.10.30`;
+- `useradd`: `16:52:14`;
+- associação ao grupo `sudo`: `16:52:32`;
+- `userdel -r`: `16:52:46`;
+- confirmação final sem a conta no sistema e no grupo `sudo`;
+- janela total observada: `16:52:14` a `16:52:53`;
+- Wazuh Manager: `10.10.10.10` via TCP/1514.
+
+### Wazuh — correlação dos eventos
+
+![Painel Wazuh de eventos correlacionados](<./imagens/03-Painel Wazuh de Eventos Correlacionados.png>)
+
+A captura do Dashboard Wazuh apresenta cinco eventos no intervalo de
+`17/11/2026 16:35:00` a `16:53:00`, envolvendo dois agentes:
+
+| Agente | IP | Evento/regra | Atividade | Conta | Grupo | Responsável | Nível |
+|---|---|---:|---|---|---|---|---:|
+| `LINUX-ENDPOINT` | `10.10.10.30` | `550` | Conta removida (`userdel -r`) | `labuser01` | — | `root` | 12 |
+| `LINUX-ENDPOINT` | `10.10.10.30` | `554` | Usuário adicionado ao grupo `sudo` | `labuser01` | `sudo` | `root` | 10 |
+| `LINUX-ENDPOINT` | `10.10.10.30` | `553` | Conta criada (`useradd`) | `labuser01` | — | `root` | 8 |
+| `WIN-ENDPOINT` | `10.10.10.20` | `4732` | Membro adicionado ao grupo privilegiado | `soc-test01` | `Administrators` | `Administrator` | 8 |
+| `WIN-ENDPOINT` | `10.10.10.20` | `4720` | Conta de usuário criada | `soc-test01` | — | `Administrator` | 7 |
+
+Todos os eventos aparecem com status `Open`. As regras e os níveis devem ser
+tratados como os valores observados nesta execução; eles podem variar conforme
+a versão do Wazuh e o ruleset instalado.
+
+As três imagens representam uma atividade administrativa controlada. Elas
+comprovam alterações de contas e grupos e sua correlação no Wazuh, mas não
+comprovam, isoladamente, intenção maliciosa ou elevação indevida de privilégio.
 
 ## Limitações conhecidas
 
