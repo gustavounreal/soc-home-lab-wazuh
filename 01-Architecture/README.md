@@ -1,4 +1,4 @@
-# SOC Home Lab — Architecture & Infrastructure
+# SOC Home Lab — Arquitetura e Infraestrutura
 
 ![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
 ![Wazuh](https://img.shields.io/badge/SIEM-Wazuh-blue)
@@ -13,7 +13,7 @@
 
 ---
 
-## 1. Overview
+## 1. Visão Geral
 
 Este projeto consiste na construção de um laboratório prático de Security Operations Center (SOC), desenvolvido para simular atividades de monitoramento de segurança, coleta de eventos, análise de logs e detecção de ameaças em um ambiente controlado.
 
@@ -30,7 +30,7 @@ O ambiente foi estruturado para reproduzir componentes e fluxos de trabalho enco
 - Investigar eventos e interpretar alertas de segurança.
 - Desenvolver habilidades práticas relacionadas à rotina de um SOC Analyst.
 
-### Architecture Overview
+### Visão Geral da Arquitetura
 
 ![Imagem 01 — SOC Architecture](<./imagens/Imagem 01 — SOC Architecture.png>)
 
@@ -38,11 +38,11 @@ O ambiente foi estruturado para reproduzir componentes e fluxos de trabalho enco
 
 ---
 
-## 2. Architecture
+## 2. Arquitetura
 
 A arquitetura foi organizada em três camadas principais, cada uma com responsabilidades específicas dentro do ambiente.
 
-### 2.1 SIEM & Monitoring Layer
+### 2.1 Camada SIEM e Monitoramento
 Camada responsável pela centralização, processamento, correlação e visualização dos eventos de segurança.
 
 **Componente principal:** Wazuh Server.
@@ -55,7 +55,7 @@ Camada responsável pela centralização, processamento, correlação e visualiz
 - Geração e armazenamento de alertas.
 - Disponibilização de dashboards de monitoramento.
 
-### 2.2 Endpoint Monitoring Layer
+### 2.2 Camada de Monitoramento dos Endpoints
 Camada composta pelos sistemas operacionais monitorados, responsáveis pela geração e envio dos eventos de segurança.
 
 **Componentes:** Windows Endpoint e Ubuntu Linux Endpoint.
@@ -67,7 +67,7 @@ Camada composta pelos sistemas operacionais monitorados, responsáveis pela gera
 - Coleta de logs.
 - Envio de eventos ao servidor central.
 
-### 2.3 Security Testing Layer
+### 2.3 Camada de Testes de Segurança
 Camada destinada à execução controlada de atividades de reconhecimento, testes de segurança e geração de eventos para validação dos mecanismos de monitoramento.
 
 **Componente:** Kali Linux.
@@ -79,7 +79,7 @@ Camada destinada à execução controlada de atividades de reconhecimento, teste
 - Execução de testes de segurança autorizados.
 - Validação da capacidade de observação e detecção do SIEM.
 
-### Logical Architecture
+### Arquitetura Lógica
 
 ![Imagem 02 — Network Topology](<./imagens/Imagem 02 — Network Topology.png>)
 
@@ -87,7 +87,7 @@ Camada destinada à execução controlada de atividades de reconhecimento, teste
 
 ---
 
-## 3. Components
+## 3. Componentes
 
 A infraestrutura é composta por quatro máquinas virtuais, distribuídas em duas redes distintas para separar o tráfego de monitoramento da interface de gerenciamento:
 
@@ -98,7 +98,7 @@ A infraestrutura é composta por quatro máquinas virtuais, distribuídas em dua
 | **LINUX-ENDPOINT** | Ubuntu Server 24.04 LTS | `10.10.10.30` | Endpoint monitorado (Linux) |
 | **KALI-ATTACKER** | Kali Linux | `10.10.10.40` | Estação de testes controlados de segurança |
 
-### 3.1 Wazuh Server
+### 3.1 Servidor Wazuh
 Servidor central responsável pela infraestrutura de monitoramento e análise de eventos de segurança.
 
 **Principais funções:**
@@ -116,7 +116,7 @@ Servidor central responsável pela infraestrutura de monitoramento e análise de
 
 *Figura 03 — Captura histórica do Dashboard Wazuh. A imagem mostra a interface acessível, mas registra zero agentes e zero eventos; não é usada como comprovação da operação atual.*
 
-### 3.2 Windows Endpoint
+### 3.2 Endpoint Windows
 Sistema Windows integrado ao ambiente de monitoramento por meio do Wazuh Agent.
 
 **Fontes de eventos monitoradas:**
@@ -127,7 +127,7 @@ Sistema Windows integrado ao ambiente de monitoramento por meio do Wazuh Agent.
 - Atividades relacionadas à segurança do sistema.
 - Eventos de serviços e processos.
 
-### 3.3 Ubuntu Linux Endpoint
+### 3.3 Endpoint Ubuntu Linux
 Sistema Linux integrado ao monitoramento centralizado por meio do Wazuh Agent.
 
 **Fontes de eventos monitoradas:**
@@ -152,11 +152,11 @@ Sistema operacional utilizado como estação de testes de segurança.
 
 ---
 
-## 4. Infrastructure
+## 4. Infraestrutura
 
 O laboratório utiliza virtualização para executar os diferentes sistemas operacionais em um ambiente controlado, permitindo a integração dos componentes e a simulação de cenários de monitoramento de segurança.
 
-### 4.1 Virtualization Environment
+### 4.1 Ambiente de Virtualização
 
 | Resource | Configuration |
 |---|---|
@@ -168,7 +168,7 @@ O laboratório utiliza virtualização para executar os diferentes sistemas oper
 | Host Storage | 512 GB SSD |
 | Virtual Machines | 4 |
 
-### 4.2 Virtual Machine Resources
+### 4.2 Recursos das Máquinas Virtuais
 
 A distribuição de recursos foi dimensionada para um computador doméstico com 32 GB de RAM, permitindo a execução simultânea das máquinas virtuais e do sistema operacional hospedeiro.
 
@@ -188,7 +188,7 @@ A distribuição de recursos foi dimensionada para um computador doméstico com 
 
 *O armazenamento virtual pode utilizar alocação dinâmica no VirtualBox, reduzindo o espaço físico efetivamente ocupado enquanto os discos não atingirem sua capacidade máxima.*
 
-### 4.3 Lab Environment
+### 4.3 Ambiente do Laboratório
 
 ![Imagem 06 — Laboratório SOC com Quatro Máquinas Virtuais](<./imagens/Imagem 06 —Laboratório SOC com Quatro Máquinas Virtuais.png>)
 
@@ -196,11 +196,11 @@ A distribuição de recursos foi dimensionada para um computador doméstico com 
 
 ---
 
-## 5. Network Topology
+## 5. Topologia de Rede
 
 A comunicação entre os sistemas ocorre por meio de uma infraestrutura de rede virtual configurada no Oracle VM VirtualBox (`VirtualBox`). O ambiente utiliza uma rede interna dedicada para a comunicação entre os componentes e uma interface Host-Only para acesso administrativo seguro.
 
-### 5.1 Network Configuration
+### 5.1 Configuração de Rede
 
 - **Network Name:** SOC-LAB
 - **Network Address:** 10.10.10.0/24
@@ -213,7 +213,7 @@ A comunicação entre os sistemas ocorre por meio de uma infraestrutura de rede 
 | Ubuntu Endpoint | LINUX-ENDPOINT | `10.10.10.30` | — |
 | Kali Linux | KALI-ATTACKER | `10.10.10.40` | — |
 
-### 5.2 Network Interfaces
+### 5.2 Interfaces de Rede
 
 | Interface | Configuration | Purpose |
 |---|---|---|
@@ -225,15 +225,15 @@ A comunicação entre os sistemas ocorre por meio de uma infraestrutura de rede 
 - A interface `Internal Network` (`10.10.10.x`) gerencia o tráfego de agentes e testes entre o SOC, os endpoints e o Kali Linux.
 - A interface NAT permite acesso externo quando necessário para atualização dos sistemas e instalação de dependências.
 
-### 5.3 Execution Evidence
+### 5.3 Evidências de Execução
 
-#### VirtualBox network adapters
+#### Adaptadores de rede do VirtualBox
 
 ![Imagem 05 — Interfaces configuradas no VirtualBox](<./imagens/Imagem 05 — interfaces configuradas no VirtualBox.jpg>)
 
 *Figura 05 — Configuração observada dos adaptadores no VirtualBox em 26/10/2026: `SOC-LAB` para a rede interna, NAT para acesso externo e Host-Only no `SOC-SERVER`. A imagem comprova a configuração dos adaptadores, não substitui os testes de conectividade.*
 
-#### NAT and DNS validation
+#### Validação de NAT e DNS
 
 ![Imagem 07 — Infográfico do Laboratório SOC-LAB Conectado](<./imagens/Imagem 07 —Infográfico do Laboratório SOC-LAB Conectado.png>)
 
@@ -241,7 +241,7 @@ A comunicação entre os sistemas ocorre por meio de uma infraestrutura de rede 
 
 As imagens 06 e 07 são composições de evidências. Os resultados devem ser interpretados como registros das execuções mostradas, e não como prova de que a conectividade permanece disponível fora do horário da captura.
 
-### 5.4 Communication Ports
+### 5.4 Portas de Comunicação
 
 | Port | Protocol | Purpose |
 |---|---|---|
@@ -259,11 +259,11 @@ As imagens 06 e 07 são composições de evidências. Os resultados devem ser in
 
 ---
 
-## 6. Data Flow
+## 6. Fluxo de Dados
 
 O fluxo de dados representa o caminho percorrido pelos eventos desde sua geração nos endpoints até sua disponibilização na plataforma de monitoramento.
 
-### 6.1 Event Collection Process
+### 6.1 Processo de Coleta de Eventos
 
 1. **Event Generation:** Os sistemas Windows e Linux geram eventos durante suas atividades operacionais e de segurança.
 2. **Log Collection:** Os agentes Wazuh instalados nos endpoints coletam os eventos configurados para monitoramento.
@@ -273,7 +273,7 @@ O fluxo de dados representa o caminho percorrido pelos eventos desde sua geraç�
 6. **Event Indexing:** Os alertas são encaminhados ao Wazuh Indexer para armazenamento e consulta.
 7. **Security Monitoring:** Os dados ficam disponíveis no Wazuh Dashboard para visualização, análise e investigação.
 
-### 6.2 Simplified Data Flow
+### 6.2 Fluxo de Dados Simplificado
 
 ```text
 +---------------------+
@@ -318,11 +318,11 @@ O Kali Linux é utilizado para gerar atividades controladas. Os eventos dessas a
 ```
 ---
 
-## 7. Security Scope
+## 7. Escopo de Segurança
 
 O laboratório foi projetado para executar atividades de monitoramento e testes de segurança em um ambiente controlado.
 
-### 7.1 Security Boundaries
+### 7.1 Limites de Segurança
 - Ambiente virtualizado e separado da infraestrutura de produção.
 - Rede interna dedicada à comunicação entre as máquinas virtuais.
 - Testes limitados aos sistemas pertencentes ao laboratório.
@@ -331,7 +331,7 @@ O laboratório foi projetado para executar atividades de monitoramento e testes 
 - Dashboard sem exposição direta à internet.
 - Comunicação externa utilizada somente quando necessária para atualizações e instalação de software.
 
-### 7.2 Scope of Activities
+### 7.2 Escopo das Atividades
 As atividades contempladas incluem:
 - Monitoramento de endpoints Windows e Linux.
 - Análise de eventos de autenticação.
@@ -343,7 +343,7 @@ As atividades contempladas incluem:
 - Validação de regras de detecção.
 - Monitoramento de vulnerabilidades, conforme os recursos habilitados.
 
-### 7.3 Limitations
+### 7.3 Limitações
 Este laboratório representa um ambiente controlado de aprendizagem e demonstração técnica. 
 
 Sua infraestrutura não possui a escala, redundância, disponibilidade ou volume de eventos encontrados em um SOC corporativo de produção. 
@@ -352,11 +352,11 @@ O objetivo é reproduzir componentes, fluxos e procedimentos técnicos relevante
 
 ---
 
-## 8. Validation
+## 8. Validação
 
 A validação da infraestrutura é realizada por meio de testes práticos destinados a comprovar a comunicação entre os componentes e o funcionamento da coleta centralizada de eventos.
 
-### 8.1 Infrastructure Validation
+### 8.1 Validação da Infraestrutura
 
 | Validation | Expected Result |
 |---|---|
@@ -371,7 +371,7 @@ A validação da infraestrutura é realizada por meio de testes práticos destin
 | Network connectivity | Comunicação conforme topologia definida |
 | Security testing | Atividades controladas observáveis nos endpoints |
 
-### 8.2 Validation Evidence
+### 8.2 Evidências de Validação
 As evidências técnicas da arquitetura estão organizadas em `01-Architecture/imagens/`:
 
 | Arquivo | Evidência documentada |
@@ -386,7 +386,7 @@ As evidências técnicas da arquitetura estão organizadas em `01-Architecture/i
 
 As imagens 01 e 02 são diagramas de arquitetura. As imagens 03, 05, 06 e 07 são registros visuais de execuções ou estados observados, com as limitações descritas nas respectivas legendas.
 
-### 8.3 Success Criteria
+### 8.3 Critérios de Sucesso
 A infraestrutura é considerada operacional quando:
 - O servidor Wazuh está funcional.
 - O Wazuh Dashboard está acessível.
@@ -398,7 +398,7 @@ A infraestrutura é considerada operacional quando:
 
 ---
 
-## Project Structure
+## Estrutura do Projeto
 
 ```text
 SOC-HOME-LAB/
