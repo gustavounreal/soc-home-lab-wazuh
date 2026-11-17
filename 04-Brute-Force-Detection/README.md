@@ -137,6 +137,17 @@ automaticamente como prova de brute force.
 
 ## Evidências Visuais
 
+### Execução controlada no Kali
+
+Confirma a origem da atividade, o destino, o usuário de teste, o protocolo
+SSH/TCP e as cinco tentativas de autenticação recusadas realizadas no
+`KALI-ATTACKER`.
+
+![Registro de tentativas SSH no Kali Linux](./images/03-Registro%20de%20Tentativas%20SSH%20no%20Kali%20Linux.png)
+
+*A captura registra a execução em 14/11/2026, entre 16:35:42 e 16:36:02,
+contra `10.10.10.30`, utilizando o usuário `labadmin`.*
+
 ### Log local de autenticação SSH
 
 Confirma as mensagens de autenticação no `LINUX-ENDPOINT`, incluindo origem,
@@ -150,6 +161,18 @@ Confirma a chegada dos eventos ao Wazuh com o agente, IP do endpoint, origem,
 usuário, regra e mensagem original.
 
 ![Alerta de falha SSH no Wazuh](./images/02-wazuh-ssh-failed-login.png)
+
+As três imagens devem ser analisadas em conjunto:
+
+1. o Kali gera as tentativas controladas;
+2. o `LINUX-ENDPOINT` registra as falhas em `/var/log/auth.log`;
+3. o Wazuh recebe e apresenta os eventos para triagem.
+
+Os horários das imagens do Kali e do Wazuh correspondem à janela de
+14/11/2026 entre 16:35:42 e 16:36:02. O log local atualmente disponível
+registra outra execução, entre 16:29:03 e 16:32:02, e deve ser recapturado
+na mesma janela caso seja necessário comprovar correlação temporal exata entre
+as três evidências.
 
 ## Triagem N1
 
