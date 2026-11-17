@@ -227,7 +227,7 @@ Eventos de autenticação coletados do endpoint Linux.
 
 Evidência de tentativa malsucedida de autenticação SSH.
 
-<img width="1376" height="768" alt="Falha de login SSH" src="./imagens/04-failed-login.jpg" />
+<img width="1376" height="768" alt="Falha de login SSH" src="./imagens/04-failed-login.png" />
 
 ### 05 — Gerenciamento de Usuários
 

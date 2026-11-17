@@ -11,15 +11,20 @@
 
 Este repositório contém a documentação e as implementações práticas de um laboratório integrado de SOC (Security Operations Center) N1. O objetivo principal não é construir uma infraestrutura complexa, mas sim demonstrar, na prática, que possuo as habilidades necessárias para executar o fluxo de trabalho real de um analista de segurança: gerar um evento, coletar os registros, detectar uma atividade suspeita, investigar e documentar a ocorrência.
 
-O laboratório foi dividido em **cenários de investigação independentes**, todos rodando dentro do mesmo ambiente controlado.
+O laboratório será dividido em **cenários de investigação independentes**, todos
+executados no mesmo ambiente controlado. Neste momento, a documentação
+implementada cobre a arquitetura, o monitoramento dos endpoints, a detecção de
+brute force, alterações de contas e privilégios, análise de processos,
+investigação de incidentes e relatórios; os módulos principais estão
+documentados em nível inicial para evolução posterior.
 
 ## Arquitetura do Ambiente
 
 A estrutura foi desenhada para ser enxuta e funcional, focada na detecção e resposta:
 
 - **Wazuh Server:** Plataforma SIEM para centralização dos eventos, correlação e análise.
-- **Windows 10/11:** Máquina monitorada (Endpoint).
-- **Ubuntu Linux:** Máquina monitorada (Endpoint).
+- **Windows 11 Pro:** Máquina monitorada (Endpoint).
+- **Ubuntu Server 24.04 LTS:** Máquina monitorada (Endpoint).
 - **Kali Linux:** Máquina utilizada para simulação controlada de ataques (Threat Emulation).
 - **Wazuh Dashboard:** Interface para visualização, triagem e investigação dos alertas.
 
@@ -35,10 +40,14 @@ Cada diretório neste repositório representa um módulo específico de atuaçã
 | [`02-Windows-Monitoring`](./02-Windows-Monitoring) | Coleta de Logs Windows | Integração de Agentes e Logs |
 | [`03-Linux-Monitoring`](./03-Linux-Monitoring) | Coleta de Logs Linux | Auditoria de Sistema e Autenticação |
 | [`04-Brute-Force-Detection`](./04-Brute-Force-Detection) | Falhas repetidas de autenticação | Detecção de Brute Force |
-| [`05-Privilege-Escalation`](./05-Privilege-Escalation) | Alteração de privilégios | Detecção de Elevação de Privilégios |
-| [`06-Suspicious-Processes`](./06-Suspicious-Processes) | Execução de processos suspeitos | Análise de Comportamento Anômalo |
-| [`07-Incident-Investigation`](./07-Incident-Investigation) | Investigação de alertas | Triagem, Linha do Tempo e Classificação |
-| [`08-Incident-Reports`](./08-Incident-Reports) | Resposta a incidentes | Documentação, Relatórios e Escalonamento |
+| [`05-Account-and-Privilege-Changes`](./05-Account-and-Privilege-Changes) | Alterações de contas e privilégios | Gerenciamento e análise de privilégios |
+| [`06-Suspicious-Processes`](./06-Suspicious-Processes) | Execução de processos suspeitos | Análise de comportamento anômalo |
+| [`07-Incident-Investigation`](./07-Incident-Investigation) | Investigação de alertas | Triagem, linha do tempo, IOCs e classificação |
+| [`08-Incident-Reports`](./08-Incident-Reports) | Relatórios e registros de incidentes | Documentação e escalonamento |
+
+Os módulos documentados representam uma base inicial de SOC N1. A evolução
+posterior deve acrescentar evidências executadas e registros reais de cada
+cenário, sem expandir a infraestrutura sem necessidade.
 
 ## Metodologia de Trabalho
 

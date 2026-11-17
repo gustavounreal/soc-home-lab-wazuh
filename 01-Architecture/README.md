@@ -32,7 +32,7 @@ O ambiente foi estruturado para reproduzir componentes e fluxos de trabalho enco
 
 ### Architecture Overview
 
-<img width="1672" height="941" alt="Imagem 01 — SOC Architecture" src="https://github.com/user-attachments/assets/ef720929-7cd2-4e15-bb75-8c3282562ada" />
+![Imagem 01 — SOC Architecture](<./imagens/Imagem 01 — SOC Architecture.png>)
 
 *Figura 01 — Visão geral da arquitetura do laboratório SOC.*
 
@@ -81,7 +81,7 @@ Camada destinada à execução controlada de atividades de reconhecimento, teste
 
 ### Logical Architecture
 
-<img width="1672" height="941" alt="Imagem 02 — Network Topology" src="https://github.com/user-attachments/assets/e50670e4-7a0e-4b11-9649-9c77db19aeb9" />
+![Imagem 02 — Network Topology](<./imagens/Imagem 02 — Network Topology.png>)
 
 *Figura 02 — Topologia lógica e comunicação entre os componentes.*
 
@@ -112,9 +112,9 @@ Servidor central responsável pela infraestrutura de monitoramento e análise de
 
 **Componentes da plataforma:** Wazuh Manager, Wazuh Indexer e Wazuh Dashboard.
 
-<img width="1672" height="941" alt="Imagem 03 — Wazuh Server" src="https://github.com/user-attachments/assets/3d42d967-4b6e-45da-94f1-84e6aaff537b" />
+![Imagem 03 — Wazuh Server](<./imagens/Imagem 03 — Wazuh Server.png>)
 
-*Figura 03 — Servidor Wazuh instalado e operacional.*
+*Figura 03 — Captura histórica do Dashboard Wazuh. A imagem mostra a interface acessível, mas registra zero agentes e zero eventos; não é usada como comprovação da operação atual.*
 
 ### 3.2 Windows Endpoint
 Sistema Windows integrado ao ambiente de monitoramento por meio do Wazuh Agent.
@@ -148,7 +148,7 @@ Sistema operacional utilizado como estação de testes de segurança.
 - Execução de testes de segurança autorizados.
 - Validação da geração e identificação de eventos no SIEM.
 
-*O Kali Linux atua como estação de testes e não depende de um agente Wazuh para desempenhar essa função.*
+*O Kali Linux atua como estação de testes. Na execução registrada nas evidências, o `KALI-ATTACKER` também aparece como agente Wazuh ativo; essa condição depende da configuração efetivamente instalada no ambiente.*
 
 ---
 
@@ -190,9 +190,9 @@ A distribuição de recursos foi dimensionada para um computador doméstico com 
 
 ### 4.3 Lab Environment
 
-<img width="1672" height="941" alt="Imagem 04 — Lab Environment" src="https://github.com/user-attachments/assets/5170a92c-57e4-4122-8fad-d5caf9335988" />
+![Imagem 06 — Laboratório SOC com Quatro Máquinas Virtuais](<./imagens/Imagem 06 —Laboratório SOC com Quatro Máquinas Virtuais.png>)
 
-*Figura 04 — Visão geral das máquinas virtuais do laboratório.*
+*Figura 06 — Evidência consolidada da execução das quatro VMs, dos IPs e rotas observados, da conectividade interna, da comunicação TCP com o Manager na porta 1514 e do Dashboard em tema claro com três agentes ativos.*
 
 ---
 
@@ -225,7 +225,23 @@ A comunicação entre os sistemas ocorre por meio de uma infraestrutura de rede 
 - A interface `Internal Network` (`10.10.10.x`) gerencia o tráfego de agentes e testes entre o SOC, os endpoints e o Kali Linux.
 - A interface NAT permite acesso externo quando necessário para atualização dos sistemas e instalação de dependências.
 
-### 5.3 Communication Ports
+### 5.3 Execution Evidence
+
+#### VirtualBox network adapters
+
+![Imagem 05 — Interfaces configuradas no VirtualBox](<./imagens/Imagem 05 — interfaces configuradas no VirtualBox.jpg>)
+
+*Figura 05 — Configuração observada dos adaptadores no VirtualBox em 26/10/2026: `SOC-LAB` para a rede interna, NAT para acesso externo e Host-Only no `SOC-SERVER`. A imagem comprova a configuração dos adaptadores, não substitui os testes de conectividade.*
+
+#### NAT and DNS validation
+
+![Imagem 07 — Infográfico do Laboratório SOC-LAB Conectado](<./imagens/Imagem 07 —Infográfico do Laboratório SOC-LAB Conectado.png>)
+
+*Figura 07 — Evidência composta de execução: os terminais exibem ping para `8.8.8.8` e resolução DNS de `google.com` no `SOC-SERVER`, `WIN-ENDPOINT`, `LINUX-ENDPOINT` e `KALI-ATTACKER`, com os endereços da rede `10.10.10.0/24`. O Dashboard em tema claro identifica a versão observada `v4.12.0` e três agentes.*
+
+As imagens 06 e 07 são composições de evidências. Os resultados devem ser interpretados como registros das execuções mostradas, e não como prova de que a conectividade permanece disponível fora do horário da captura.
+
+### 5.4 Communication Ports
 
 | Port | Protocol | Purpose |
 |---|---|---|
@@ -356,14 +372,19 @@ A validação da infraestrutura é realizada por meio de testes práticos destin
 | Security testing | Atividades controladas observáveis nos endpoints |
 
 ### 8.2 Validation Evidence
-As evidências técnicas são organizadas ao longo da documentação do projeto, incluindo:
-- Capturas da infraestrutura virtualizada.
-- Estado dos agentes conectados.
-- Registros de eventos recebidos.
-- Alertas gerados pelo Wazuh.
-- Resultados dos testes de comunicação.
-- Evidências de atividades de segurança simuladas.
-- Registros de análise e investigação.
+As evidências técnicas da arquitetura estão organizadas em `01-Architecture/imagens/`:
+
+| Arquivo | Evidência documentada |
+|---|---|
+| `Imagem 01 — SOC Architecture.png` | Visão geral da arquitetura |
+| `Imagem 02 — Network Topology.png` | Topologia lógica e fluxo de comunicação |
+| `Imagem 03 — Wazuh Server.png` | Captura histórica do Dashboard; mostra a interface, mas não agentes ou eventos atuais |
+| `Imagem 04 — Lab Environment.jpg` | Captura histórica das VMs; não é a evidência operacional atual |
+| `Imagem 05 — interfaces configuradas no VirtualBox.jpg` | Adaptadores `SOC-LAB`, NAT e Host-Only |
+| `Imagem 06 —Laboratório SOC com Quatro Máquinas Virtuais.png` | Quatro VMs ligadas, IPs, rotas, ping interno, TCP `1514` e agentes ativos |
+| `Imagem 07 —Infográfico do Laboratório SOC-LAB Conectado.png` | Testes de NAT, DNS, versões observadas e Dashboard em tema claro |
+
+As imagens 01 e 02 são diagramas de arquitetura. As imagens 03, 05, 06 e 07 são registros visuais de execuções ou estados observados, com as limitações descritas nas respectivas legendas.
 
 ### 8.3 Success Criteria
 A infraestrutura é considerada operacional quando:
@@ -384,11 +405,14 @@ SOC-HOME-LAB/
 │
 ├── 01-Architecture/
 │   ├── README.md
-│   └── images/
-│       ├── 01-soc-architecture.png
-│       ├── 02-network-topology.png
-│       ├── 03-wazuh-server.png
-│       └── 04-lab-environment.png
+│   └── imagens/
+│       ├── Imagem 01 — SOC Architecture.png
+│       ├── Imagem 02 — Network Topology.png
+│       ├── Imagem 03 — Wazuh Server.png
+│       ├── Imagem 04 — Lab Environment.jpg
+│       ├── Imagem 05 — interfaces configuradas no VirtualBox.jpg
+│       ├── Imagem 06 —Laboratório SOC com Quatro Máquinas Virtuais.png
+│       └── Imagem 07 —Infográfico do Laboratório SOC-LAB Conectado.png
 │
 ├── 02-Windows-Monitoring/
 ├── 03-Linux-Monitoring/
